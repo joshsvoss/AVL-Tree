@@ -1,10 +1,41 @@
 package data_structures;
 
 import java.util.Iterator;
-import java.util.Spliterator;
 import java.util.function.Consumer;
 
 public class AvlTree implements Iterable<Integer> {
+	
+	
+	
+	/** Default no-args constructor.
+	 * 
+	 */
+	public AvlTree() {
+		
+	}
+	
+	/** A constructor that builds the tree by adding the elements in the input
+	 * array one by one.  If a value appears more than once in the list,
+	 * only the first appearance is added.  
+	 * @param data
+	 */
+	public AvlTree(int[] data) {
+		
+	}
+	
+	/** A copy constructor that creates a deep copy of the given AvlTree.
+	 * This means that for every node or any other internal object of 
+	 * the given tree, a new, identical object, 
+	 * is instantiated for the new tree.  (the internal object is simply
+	 * referenced from it).  The new tree must contain all
+	 * the values of the given tree but not necessarily the same structure.
+	 * 
+	 * @param avlTree an AVL tree.
+	 */
+	public AvlTree(AvlTree avlTree) {
+		
+	}
+	
 	
 	
 	/** Add a new node with the given key to the tree.
@@ -55,10 +86,19 @@ public class AvlTree implements Iterable<Integer> {
 		// TODO Auto-generated method stub
 		
 	}
-
-	public Spliterator spliterator() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	//TODO  DO we need a spliterator too?
+	
+	/** Calculates the minimum number of nodes in an AVL tree of height h.
+	 * 
+	 * @param h the height of the tree (non-negative number).
+	 * @return the minimum number of nodes in an avl tree of that height.  
+	 */
+	public static int findMinNodes(int h) {
+		
 	}
+	
+
+	
 
 }
