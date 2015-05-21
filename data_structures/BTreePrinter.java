@@ -48,14 +48,14 @@ public class BTreePrinter {
 					continue;
 				}
 
-				if (list.get(j).getLeftSon() != null)
+				if (list.get(j).getLeft() != null)
 					System.out.print("/");
 				else
 					BTreePrinter.printWhitespaces(1);
 
 				BTreePrinter.printWhitespaces(i + i - 1);
 
-				if (list.get(j).getRightSon() != null)
+				if (list.get(j).getRight() != null)
 					System.out.print("\\");
 				else
 					BTreePrinter.printWhitespaces(1);
@@ -78,7 +78,7 @@ public class BTreePrinter {
 		if (node == null)
 			return 0;
 
-		return Math.max(BTreePrinter.maxLevel(node.getLeftSon()), BTreePrinter.maxLevel(node.getRightSon())) + 1;
+		return Math.max(BTreePrinter.maxLevel(node.getLeft()), BTreePrinter.maxLevel(node.getRight())) + 1;
 	}
 
 	private static <T> boolean isAllElementsNull(List<Node> list) {

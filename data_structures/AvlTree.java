@@ -1,9 +1,18 @@
 package data_structures;
 
 import java.util.Iterator;
-import java.util.function.Consumer;
+
 
 public class AvlTree implements Iterable<Integer> {
+	
+	// Magic numbers
+	private final constant int INIT_SIZE = 0;
+	
+	// Fields
+	Node root;
+	int size;
+	
+	
 	
 	
 	
@@ -11,6 +20,9 @@ public class AvlTree implements Iterable<Integer> {
 	 * 
 	 */
 	public AvlTree() {
+		
+		this.size = INIT_SIZE;
+		root = null;  
 		
 	}
 	
@@ -20,6 +32,12 @@ public class AvlTree implements Iterable<Integer> {
 	 * @param data
 	 */
 	public AvlTree(int[] data) {
+		
+		this();
+		
+		for (int element: data ) {
+			this.add(element);
+		}
 		
 	}
 	
@@ -33,7 +51,7 @@ public class AvlTree implements Iterable<Integer> {
 	 * @param avlTree an AVL tree.
 	 */
 	public AvlTree(AvlTree avlTree) {
-		
+		// TODO implement
 	}
 	
 	
@@ -96,6 +114,11 @@ public class AvlTree implements Iterable<Integer> {
 	 */
 	public static int findMinNodes(int h) {
 		
+	}
+	
+	@Override
+	public String toString() {
+		BTreePrinter.printNode(this.root);
 	}
 	
 
