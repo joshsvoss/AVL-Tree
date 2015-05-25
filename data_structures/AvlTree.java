@@ -87,7 +87,7 @@ public class AvlTree implements Iterable<Integer> {
 	 * @param subRoot the root of the subtree being worked on
 	 * @return
 	 */
-	private Node recAdd(int newValue, Node subRoot) {
+	private Node recAdd(int newValue, Node subRoot) { 
 		
 		if (subRoot == null)  {
 			// Then we've found the spot to place our element:
@@ -131,8 +131,15 @@ public class AvlTree implements Iterable<Integer> {
 				if (newValue < subRoot.getRight().getData()) {
 					// Right-Left case -> perform double rotation.
 					rightLeftRotation(subRoot);
+					subRoot = rightRightRotation(subRoot); //TODO repition,
+				}
+				
+				else if (newValue > subRoot.getRight().getData()) {
 					subRoot = rightRightRotation(subRoot);
 				}
+				
+				// Otherwise, newValue == the left child's data, -> duplicate, no add performed.
+				
 			}
 		}
 		
