@@ -52,6 +52,22 @@ public class Node {
 	public void setRight(Node right) {
 		this.right = right;
 	}
+
+	/** This method returns the height balance between the left and right subtrees 
+	 * of the node.
+	 * @return
+	 */
+	public int heightBalance() {
+		return this.left.getHeight() - this.right.getHeight(); //TODO make sure you're consistent.  
+	}
+	
+	/** This method returns the height of this node instance.
+	 * @return height of the node.  -1 if null, 0 if node is a leaf, and incrementally upwards, where
+	 * each node's height = max (leftHeight, rightHeight) + 1  
+	 */
+	public int getHeight() {
+		//TODO implement
+	}
 	
 	
 

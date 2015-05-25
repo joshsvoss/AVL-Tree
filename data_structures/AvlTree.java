@@ -9,6 +9,8 @@ public class AvlTree implements Iterable<Integer> {
 	// Magic numbers
 	private final static int INIT_SIZE = 0;
 	private static final int NULL_NODE_HEIGHT = -1;
+	private static final int LEFT_UNBALLANCED = 2; //TODO make sure these are consistent with balance method
+	private static final int RIGHT_UNBALLANCED = -2;
 	
 	// Fields
 	Node root;
@@ -95,6 +97,42 @@ public class AvlTree implements Iterable<Integer> {
 		else if (newValue < subRoot.getData() )  { 
 			// Then the data should be placed to the LEFT of this subroot.
 			subRoot = recAdd(newValue, subRoot.getLeft());
+			
+			// Now check balance to see if rotation is needed on this side:
+			// Expect to see an extra long LEFT side: 2
+			if (subRoot.heightBalance() == LEFT_UNBALLANCED) {
+				// Check on what side of left CHILD was the node placed:
+				if (newValue > subRoot.getLeft().getData()) { //TODO should I consolidate the double rotation into one method?
+					// Left-Right case: Then we need to perform double rotation
+					leftRightRotation(subRoot);
+					subRoot = leftLeftRotation(subRoot);  //TODO Repitition?  Consolidate to one "doubelRortation" caller method?
+				}
+				
+				else if (newValue < subRoot.getLeft().getData()) {
+					// Then we only need one rotation
+					subRoot = leftLeftRotation(subRoot);
+				}
+				
+				// Otherwise, newValue == the left child's data, -> duplicate, no add performed.
+
+			}
+		}
+		
+		else if (newValue > subRoot.getData()) {
+			// Then the recursive calls will start going down RIGHT of this root.
+			subRoot = recAdd(newValue, subRoot.getRight());
+			
+			// Now check balance to see if rotation is needed on this side:
+			// Expect to see an extra long RIGHT side: -2 
+			if (subRoot.heightBalance() ==  RIGHT_UNBALLANCED) {
+				
+				// Check on what side of RIGHT CHILD was the node placed:
+				if (newValue < subRoot.getRight().getData()) {
+					// Right-Left case -> perform double rotation.
+					rightLeftRotation(subRoot);
+					subRoot = rightRightRotation(subRoot);
+				}
+			}
 		}
 		
 		else if (newValue > subRoot.getData()) {
@@ -103,12 +141,120 @@ public class AvlTree implements Iterable<Integer> {
 		}
 		
 		else {
-			// In this case, the newValue is eqaul to the subRoot's data,
+			// In this case, the newValue is equal to the subRoot's data,
 			// And we don't want duplicates in the tree, so nothing is done.
 		}
 		
 		// Return either the same node, or the new node if the insertion has taken place.  
-		return subRoot;  
+		return subRoot;
+	}
+
+	/* This method performs the rotation necessary in the Left-Right case, converting it
+	 * to the Left-Left case, as illustrated below
+	 * 
+	 *      3                3
+	 *     /                /
+	 *    1       -->      2
+	 *     \              /  
+	 *      2            1
+	 * 
+	 * This rotation is to be followed by the leftLeftRotation().
+	 * 
+	 * @param node3 the root of this subtree, which in this totation is unchanged.  Highest value of 
+	 * the three nodes.  
+	 */
+	private void leftRightRotation(Node node3) { 
+		
+		
+		Node node1 = node3.getLeft();
+		
+		node3.setLeft(node1.getRight()); // Which is the boy node.
+		// reset dad's reference to null
+		node1.setRight(null);
+		
+		node3.getLeft().setLeft(node1);
+
+		
+	}
+	
+	/* This method performs the rotation necessary in the left-left case.
+	 * As depicted in the following visual:
+	 * 
+	 *      3            2
+	 *     /            / \
+	 *    2       -->  1   3
+	 *   /               
+	 *  1          
+	 *  
+	 *
+	 * @param node3 the node with the data of highest value.  
+	 * This is to be rotated with the node of second highest value.
+	 * 
+	 * @return the new root of this subtree so it can be reset recursively up the tree.
+	 */
+	private Node leftLeftRotation(Node node3) {
+		
+		// Set 2 node's right reference to point at 3 node
+		Node node2 = node3.getLeft();
+		node2.setRight(node3); 
+		node3.setLeft(null);
+		
+		return node2; // Return the new ROOT of this subtree.  
+		
+	}
+	
+	/* This method performs the rotation necessary in the Right-Left case,
+	 * as depicted in the illustration:
+	 * 
+	 *    1            1
+	 *     \            \
+	 *      3   -->      2 
+  	 *     /              \
+	 *    2                3
+	 * 
+	 *  This rotation is to be followed by the rightRightRotation();
+	 * 
+	 * @param node1 the root of this subtree, not changed in this rotation.
+	 */
+	private void rightLeftRotation(Node node1) {
+		
+		Node node3 = node1.getRight();
+		Node node2 = node3.getLeft();
+		
+		// Rotate:
+		node1.setRight(node2);
+		node2.setRight(node3);
+		// Reset double pointer to null:
+		node3.setLeft(null);
+		
+	}
+	
+	
+	/*  This method performs the rotation necessary in the Right-Right case,
+	 * as depicted in the illustration:
+	 *    1               2
+	 *     \             / \
+	 *      2   -->     1   3 
+  	 *       \           
+	 *        3           
+	 * 
+	 * This rotation is either performed by itself in the Right-Right case, 
+	 * or performed after rightLeftRotation() in the Right-Left case.
+	 * 
+	 * @param node1 the original root of the subtree, of least value.
+	 * @return the new root of this subtree, the middle value of the three nodes.
+	 */
+	private Node rightRightRotation(Node node1) {
+		
+		Node node2 = node1.getRight();
+		node2.setLeft(node1);
+		
+		// reset straggling node1.right pointer
+		node1.setRight(null);
+		
+		// Return new subtree root so it can be recursively assigned up the tree
+		return node2;
+		
 	}
 
 	/** Check whether the tree contains the given input value
@@ -146,7 +292,7 @@ public class AvlTree implements Iterable<Integer> {
 		return null;
 	}
 
-	public void forEach(Consumer action) {
+	public void forEach(Consumer action) {  //TODO what's a consumer action?
 		// TODO Auto-generated method stub
 		
 	}
