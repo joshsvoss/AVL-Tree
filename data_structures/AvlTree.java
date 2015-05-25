@@ -11,6 +11,7 @@ public class AvlTree implements Iterable<Integer> {
 	private static final int NULL_NODE_HEIGHT = -1;
 	private static final int LEFT_UNBALLANCED = 2; //TODO make sure these are consistent with balance method
 	private static final int RIGHT_UNBALLANCED = -2;
+	private static final int ROOT_DEPTH = 0;
 	
 	// Fields
 	Node root;
@@ -264,7 +265,33 @@ public class AvlTree implements Iterable<Integer> {
 	 * value if it was found in the tree, -1 otherwise.  
 	 */
 	public int contains(int searchVal) {
+		return recContains(searchVal, ROOT_DEPTH, this.root);
+	}
+	
+	/* This helper method allows recursive calls to itself so the 
+	 * external contains() method can be implemented recursively.  
+	 * @param searchVal int, the value to be looked for.
+	 * @param curDepth the depth at this level of the recursion, at the calling level.
+	 * @param curNode the node currenlty being inspected.
+	 * @return int representing the depth of the node, -1 if not found, 0 for root.
+	 */
+	private int recContains(int searchVal, int curDepth, Node curNode) {
 		
+		// Base case 1: if we've reached a null, then searchVal isn't here
+		if (curNode == null) {
+			return -1;
+		}
+		
+		// Base case 2: if curNode contains our searchVal
+		else if (curNode.getData() == searchVal) {
+			return curDepth;  // TODO 1-off here?
+		}
+		
+		// Recursive case: call contains on the next level down
+		else {
+			Node nextSide = ( searchVal < curNode.getData() ) ? curNode.getLeft() : curNode.getRight();
+			return recContains(searchVal, curDepth + 1, nextSide);
+		}
 	}
 	
 	/** Removes the node with the given value from the tree, if it exists.
