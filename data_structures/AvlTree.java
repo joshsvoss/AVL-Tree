@@ -4,9 +4,11 @@ import java.util.Iterator;
 
 
 public class AvlTree implements Iterable<Integer> {
-	
+
+
 	// Magic numbers
-	private final constant int INIT_SIZE = 0;
+	private final static int INIT_SIZE = 0;
+	private static final int NULL_NODE_HEIGHT = -1;
 	
 	// Fields
 	Node root;
@@ -50,8 +52,9 @@ public class AvlTree implements Iterable<Integer> {
 	 * 
 	 * @param avlTree an AVL tree.
 	 */
-	public AvlTree(AvlTree avlTree) {
+	public AvlTree(NardeenAvlTree avlTree) {
 		// TODO implement
+		// TODO grab iterator from avl tree and call next until null?  Then add em all.
 	}
 	
 	
@@ -62,9 +65,52 @@ public class AvlTree implements Iterable<Integer> {
 	 * in the tree and was successfully added.  False otherwise.
 	 */
 	public boolean add(int newValue) {
+		int beforeSize = this.size;
 		
+		// Call an internal method so you can pass a node reference as well:
+		this.root = recAdd(newValue, root);  // TODO how can I both return the sub tree roots, and if the add was succesful or not?
+	
+		// TODO DEBUG Delete:
+		if (this.size != beforeSize && this.size != beforeSize +1) {
+			System.out.printf("DEBUG: size has increased by more then 1.  Before: %d, after: %d %n", beforeSize, this.size);
+		}
+		
+		return beforeSize != this.size; // If the size has changed then the insertion occurred.  
 	}
 	
+	// TODO should helper methods have javadocs?
+	/* Helper method to allow us to use recursion to add integers.  
+	 * @param newValue the int to be added
+	 * @param subRoot the root of the subtree being worked on
+	 * @return
+	 */
+	private Node recAdd(int newValue, Node subRoot) {
+		
+		if (subRoot == null)  {
+			// Then we've found the spot to place our element:
+			subRoot = new Node(newValue); // TODO initialize parent here as well?
+			this.size++;
+		}
+		
+		else if (newValue < subRoot.getData() )  { 
+			// Then the data should be placed to the LEFT of this subroot.
+			subRoot = recAdd(newValue, subRoot.getLeft());
+		}
+		
+		else if (newValue > subRoot.getData()) {
+			// Then the value should be inserted to the right of this node:
+			subRoot = recAdd(newValue, subRoot.getRight());
+		}
+		
+		else {
+			// In this case, the newValue is eqaul to the subRoot's data,
+			// And we don't want duplicates in the tree, so nothing is done.
+		}
+		
+		// Return either the same node, or the new node if the insertion has taken place.  
+		return subRoot;  
+	}
+
 	/** Check whether the tree contains the given input value
 	 * 
 	 * @param searchVal the value to be searched for
@@ -80,7 +126,7 @@ public class AvlTree implements Iterable<Integer> {
 	 * @return true if the given node was found and delete, otherwise false.  
 	 */
 	public boolean delete(int toDelete) {
-		
+		// TODO dont' forget to reduce size here.
 	}
 	
 	/** 
@@ -119,6 +165,15 @@ public class AvlTree implements Iterable<Integer> {
 	@Override
 	public String toString() {
 		BTreePrinter.printNode(this.root);
+	}
+	
+	public int height(Node n) {
+		if (n == null) {
+			return NULL_NODE_HEIGHT;
+		}
+		else {
+			return n.height; //TODO should node have height field?
+		}
 	}
 	
 

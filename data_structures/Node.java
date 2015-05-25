@@ -23,7 +23,11 @@ public class Node {
 	}
 	
 	// TODO create a FULL-ARGS constructor here, with left right and parent to be assigned?
-	
+	public Node(int data, Node left, Node right) {
+		this(data);
+		this.left = left;
+		this.right = right;
+	}
 	
 	//TODO add validation for below getters and setters?
 	public Node getLeft() {
