@@ -6,6 +6,11 @@ import java.util.Iterator;
 public class AvlTree implements Iterable<Integer> {
 
 
+	private static final int MIN_NODES_OF_HEIGHT_1 = 2;
+	private static final int MIN_NODES_OF_HEIGHT_0 = 1;
+	private static final int HEIGHT_ONE = 1;
+	private static final int HEIGHT_ZERO = 0;
+	private static final int MIN_HEIGHT = 0;
 	// Magic numbers
 	private final static int INIT_SIZE = 0;
 	private static final int NULL_NODE_HEIGHT = -1;
@@ -342,16 +347,16 @@ public class AvlTree implements Iterable<Integer> {
 		//TODO 1) base case start with 0?  2) validate negative heights? 3) Magic numbers? 
 		
 		// Make sure to return -1 for negative heights
-		if (h < 0) {
+		if (h < MIN_HEIGHT) {
 			return -1;
 		}
 		
 		// base cases
-		if (h == 1) {
-			return 0;
+		if (h == HEIGHT_ZERO) {
+			return MIN_NODES_OF_HEIGHT_1;
 		}
-		else if (h == 2) {
-			return 1;
+		else if (h == HEIGHT_ONE) {
+			return MIN_NODES_OF_HEIGHT_0;
 		}
 		
 		// Recursive cases: 
@@ -365,15 +370,25 @@ public class AvlTree implements Iterable<Integer> {
 	@Override
 	public String toString() {
 		BTreePrinter.printNode(this.root);
+		
+		return ""; //TODO is this kosher??
 	}
 	
-	public int height(Node n) {
+	public int height(Node n) { // TODO GEt rid of this method if you go function path instead of keeping track of height in data field
 		if (n == null) {
 			return NULL_NODE_HEIGHT;
 		}
 		else {
 			return n.height; //TODO should node have height field?
 		}
+	}
+	
+	/** This helper 
+	 * @param subRoot
+	 * @return
+	 */
+	private int getHeight(Node subRoot) {
+		
 	}
 	
 
