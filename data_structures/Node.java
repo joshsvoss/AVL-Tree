@@ -65,8 +65,17 @@ public class Node {
 	 * @return height of the node.  -1 if null, 0 if node is a leaf, and incrementally upwards, where
 	 * each node's height = max (leftHeight, rightHeight) + 1  
 	 */
-	public int getHeight() { //TODO should I make a method in the AVL Tree that calls this on the argument node n?
-		return recHeight(this.root)
+	public int getHeight() { //TODO should I make a method in the AVL Tree that calls this on the argument node n? POUND COMMENT HERE EXPLAINING CHOICE
+		return recHeight(this);
+	}
+	
+	/* This helper method exists to allow the height getting function to be
+	 * recursive.  We need to add a Node type argument to allow this to be recursive
+	 * 
+	 * @return int represneting the height of the current node, passed in as argument.  
+	 */
+	private int recHeight(Node subRoot) {
+		
 	}
 	
 	
