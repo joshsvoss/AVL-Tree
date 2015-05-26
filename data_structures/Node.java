@@ -57,15 +57,15 @@ public class Node {
 	 * of the node.
 	 * @return
 	 */
-	public int heightBalance() {
-		return this.left.getHeight() - this.right.getHeight(); //TODO make sure you're consistent.  
+	int heightBalance() { // TODO moving this also to Avl Tree?? delete?
+		return AvlTree.getHeight(this.left) - this.right.getHeight(); //TODO make sure you're consistent.  
 	}
 	
 	/** This method returns the height of this node instance.
 	 * @return height of the node.  -1 if null, 0 if node is a leaf, and incrementally upwards, where
 	 * each node's height = max (leftHeight, rightHeight) + 1  
 	 */
-	public int getHeight() { //TODO should I make a method in the AVL Tree that calls this on the argument node n? POUND COMMENT HERE EXPLAINING CHOICE
+	public int getHeight() { //TODO MOVED TO AVLTREE.  Delete? POUND COMMENT HERE EXPLAINING CHOICE
 		return recHeight(this);
 	}
 	
@@ -76,8 +76,24 @@ public class Node {
 	 */
 	private int recHeight(Node subRoot) {
 		
+		// Recursive case:
+		else {
+			return max(subRoot.)
+		}
 	}
 	
 	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+

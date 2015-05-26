@@ -106,7 +106,7 @@ public class AvlTree implements Iterable<Integer> {
 			
 			// Now check balance to see if rotation is needed on this side:
 			// Expect to see an extra long LEFT side: 2
-			if (subRoot.heightBalance() == LEFT_UNBALLANCED) {
+			if (heightBalance(subRoot) == LEFT_UNBALLANCED) {
 				// Check on what side of left CHILD was the node placed:
 				if (newValue > subRoot.getLeft().getData()) { //TODO should I consolidate the double rotation into one method?
 					// Left-Right case: Then we need to perform double rotation
@@ -130,7 +130,7 @@ public class AvlTree implements Iterable<Integer> {
 			
 			// Now check balance to see if rotation is needed on this side:
 			// Expect to see an extra long RIGHT side: -2 
-			if (subRoot.heightBalance() ==  RIGHT_UNBALLANCED) {
+			if (heightBalance(subRoot) ==  RIGHT_UNBALLANCED) {
 				
 				// Check on what side of RIGHT CHILD was the node placed:
 				if (newValue < subRoot.getRight().getData()) {
@@ -383,12 +383,40 @@ public class AvlTree implements Iterable<Integer> {
 		}
 	}
 	
-	/** This helper 
+	
+	/** This method returns the height balance between the left and right subtrees 
+	 * of the node.
+	 * @return
+	 */
+	public int heightBalance(Node n) { // TODO moving this also to Avl Tree??
+		return getHeight(n.getLeft()) - getHeight(n.getRight()); //TODO make sure you're consistent.  
+	}
+	
+	/* This method returns the height of the node in the argument as 
+	 * an integer.  REMEMBER: we're treating the height of a leaf as 0 NOT 1.
+	 * So height is really the counting of the EDGES not the NODES on the longest path.  
 	 * @param subRoot
 	 * @return
 	 */
-	private int getHeight(Node subRoot) {
+	private static int getHeight(Node subRoot) {
 		
+		if (subRoot == null) {
+			return -1;
+		}
+		
+		// Recursive case:
+		else {
+			return intMax(getHeight(subRoot.getLeft()), getHeight(subRoot.getRight())) + HEIGHT_ONE;
+		}
+	}
+	
+	/* This helper method returns the max of two integers
+	 * @param a one integer
+	 * @param b another integer
+	 * @return in the max of the two
+	 */
+	private static int intMax(int a, int b) {
+		return (a > b) ? a : b;  //TODO is this the correct logics?
 	}
 	
 
