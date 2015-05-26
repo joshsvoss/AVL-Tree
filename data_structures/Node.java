@@ -65,8 +65,8 @@ public class Node {
 	 * @return height of the node.  -1 if null, 0 if node is a leaf, and incrementally upwards, where
 	 * each node's height = max (leftHeight, rightHeight) + 1  
 	 */
-	public int getHeight() {
-		//TODO implement
+	public int getHeight() { //TODO should I make a method in the AVL Tree that calls this on the argument node n?
+		return recHeight(this.root)
 	}
 	
 	

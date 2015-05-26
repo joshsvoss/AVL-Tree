@@ -313,7 +313,7 @@ public class AvlTree implements Iterable<Integer> {
 	 * @return the number of nodes in the tree.
 	 */
 	public int size() {
-		
+		return this.size;
 	}
 
 	/* 
@@ -338,7 +338,27 @@ public class AvlTree implements Iterable<Integer> {
 	 * @param h the height of the tree (non-negative number).
 	 * @return the minimum number of nodes in an avl tree of that height.  
 	 */
-	public static int findMinNodes(int h) {
+	public static int findMinNodes(int h) { 
+		//TODO 1) base case start with 0?  2) validate negative heights? 3) Magic numbers? 
+		
+		// Make sure to return -1 for negative heights
+		if (h < 0) {
+			return -1;
+		}
+		
+		// base cases
+		if (h == 1) {
+			return 0;
+		}
+		else if (h == 2) {
+			return 1;
+		}
+		
+		// Recursive cases: 
+		else{
+			return findMinNodes(h - 1) + findMinNodes(h - 2);
+			
+		}
 		
 	}
 	
