@@ -209,8 +209,9 @@ public class AvlTree implements Iterable<Integer> {
 		
 		// Set 2 node's right reference to point at 3 node
 		Node node2 = node3.getLeft();
+		Node beta = node2.getRight();
 		node2.setRight(node3); 
-		node3.setLeft(null);
+		node3.setLeft(beta);
 		
 		return node2; // Return the new ROOT of this subtree.  
 		
@@ -260,10 +261,11 @@ public class AvlTree implements Iterable<Integer> {
 	private Node rightRightRotation(Node node1) {
 		
 		Node node2 = node1.getRight();
+		Node beta = node2.getLeft();
 		node2.setLeft(node1);
 		
 		// reset straggling node1.right pointer
-		node1.setRight(null);
+		node1.setRight(beta);
 		
 		// Return new subtree root so it can be recursively assigned up the tree
 		return node2;
