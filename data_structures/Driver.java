@@ -1,4 +1,5 @@
 package data_structures;
+import java.util.Iterator;
 
 public class Driver {
 	
@@ -21,8 +22,16 @@ public class Driver {
 		
 		for (int i= 0; i < 26; i++) tree.add(i);
 		tree.printTree();
+		System.out.printf("SIZE: %d %n", tree.size());
+		
+		// Try out iterator
+		Iterator<Integer> it = tree.iterator();
+		for (int i = 0; i < tree.size(); i ++) {
+			System.out.println(it.next());
+		}
 		
 		for (int i= 0; i < 24; i++) tree.delete(i);
+		System.out.printf("SIZE: %d %n", tree.size());
 		
 //		for (int i= 0; i > -6; i--) tree.add(i);
 		

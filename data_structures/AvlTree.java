@@ -19,8 +19,8 @@ public class AvlTree implements Iterable<Integer> {
 	private static final int ROOT_DEPTH = 0;
 	
 	// Fields
-	Node root;
-	int size;
+	private Node root;
+	private int size;
 	
 	
 	
@@ -334,16 +334,24 @@ public class AvlTree implements Iterable<Integer> {
 	private Node recDelete(int toDelete, Node subRoot) {
 		// If tree is empty, do nothing and return the tree so everything stays as is
 		// Or alternatively, we've reached null because toDelte doesn't exist in our tree
-		if (subRoot == null) return subRoot;
-		
+		if (subRoot == null) {
+			return subRoot;
+		}
+			
 		// if toDelete is less than our root, go left:
-		else if (toDelete < subRoot.getData() ) subRoot.setLeft(recDelete(toDelete, subRoot.getLeft()));
+		else if (toDelete < subRoot.getData() )  {
+			subRoot.setLeft(recDelete(toDelete, subRoot.getLeft()));
+		}
 		
 		// Likewise for the right side and greater than:
-		else if (toDelete > subRoot.getData()) subRoot.setLeft(recDelete(toDelete, subRoot.getLeft()));
+		else if (toDelete > subRoot.getData()) { 
+			subRoot.setLeft(recDelete(toDelete, subRoot.getLeft()));
+		}
 		
 		// Otherwise, we've found the desired node!
-		else subRoot = literalDelete(subRoot);
+		else {
+			subRoot = literalDelete(subRoot);
+		}
 		
 		// Now check rotation conditions and call the appropriate rotation,
 		// As long as it's not null (when a node was deleted by assigning itself to it's
@@ -518,6 +526,15 @@ public class AvlTree implements Iterable<Integer> {
 	 */
 	private static int intMax(int a, int b) {
 		return (a > b) ? a : b;  //TODO is this the correct logics?
+	}
+	
+	/* This package level method returns a reference to the root node.
+	 * It's used in the iterator to populate the list.
+	 * @return Node, the root of the tree.
+	 */
+	Node getRoot() { //TODO is this allowed?
+		return this.root;
+		
 	}
 	
 
