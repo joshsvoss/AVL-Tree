@@ -52,36 +52,36 @@ public class Node {
 	public void setRight(Node right) {
 		this.right = right;
 	}
-
-	/** This method returns the height balance between the left and right subtrees 
-	 * of the node.
-	 * @return
-	 */
-	int heightBalance() { // TODO moving this also to Avl Tree?? delete?
-		return AvlTree.getHeight(this.left) - this.right.getHeight(); //TODO make sure you're consistent.  
-	}
-	
-	/** This method returns the height of this node instance.
-	 * @return height of the node.  -1 if null, 0 if node is a leaf, and incrementally upwards, where
-	 * each node's height = max (leftHeight, rightHeight) + 1  
-	 */
-	public int getHeight() { //TODO MOVED TO AVLTREE.  Delete? POUND COMMENT HERE EXPLAINING CHOICE
-		return recHeight(this);
-	}
-	
-	/* This helper method exists to allow the height getting function to be
-	 * recursive.  We need to add a Node type argument to allow this to be recursive
-	 * 
-	 * @return int represneting the height of the current node, passed in as argument.  
-	 */
-	private int recHeight(Node subRoot) {
-		
-		// Recursive case:
-		else {
-			return max(subRoot.)
-		}
-	}
-	
+//
+//	/** This method returns the height balance between the left and right subtrees 
+//	 * of the node.
+//	 * @return
+//	 */
+//	int heightBalance() { // TODO moving this also to Avl Tree?? delete?
+//		return AvlTree.getHeight(this.left) - this.right.getHeight(); //TODO make sure you're consistent.  
+//	}
+//	
+//	/** This method returns the height of this node instance.
+//	 * @return height of the node.  -1 if null, 0 if node is a leaf, and incrementally upwards, where
+//	 * each node's height = max (leftHeight, rightHeight) + 1  
+//	 */
+//	public int getHeight() { //TODO MOVED TO AVLTREE.  Delete? POUND COMMENT HERE EXPLAINING CHOICE
+//		return recHeight(this);
+//	}
+//	
+//	/* This helper method exists to allow the height getting function to be
+//	 * recursive.  We need to add a Node type argument to allow this to be recursive
+//	 * 
+//	 * @return int represneting the height of the current node, passed in as argument.  
+//	 */
+//	private int recHeight(Node subRoot) {
+//		
+//		// Recursive case:
+//		else {
+//			return max(subRoot.)
+//		}
+//	}
+//	
 	
 
 }

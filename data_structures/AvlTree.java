@@ -60,7 +60,7 @@ public class AvlTree implements Iterable<Integer> {
 	 * 
 	 * @param avlTree an AVL tree.
 	 */
-	public AvlTree(NardeenAvlTree avlTree) {
+	public AvlTree(AvlTree avlTree) {
 		// TODO implement
 		// TODO grab iterator from avl tree and call next until null?  Then add em all.
 	}
@@ -102,7 +102,7 @@ public class AvlTree implements Iterable<Integer> {
 		
 		else if (newValue < subRoot.getData() )  { 
 			// Then the data should be placed to the LEFT of this subroot.
-			subRoot = recAdd(newValue, subRoot.getLeft());
+			subRoot.setLeft( recAdd(newValue, subRoot.getLeft()) );
 			
 			// Now check balance to see if rotation is needed on this side:
 			// Expect to see an extra long LEFT side: 2
@@ -126,7 +126,7 @@ public class AvlTree implements Iterable<Integer> {
 		
 		else if (newValue > subRoot.getData()) {
 			// Then the recursive calls will start going down RIGHT of this root.
-			subRoot = recAdd(newValue, subRoot.getRight());
+			subRoot.setRight( recAdd(newValue, subRoot.getRight()) );
 			
 			// Now check balance to see if rotation is needed on this side:
 			// Expect to see an extra long RIGHT side: -2 
@@ -284,7 +284,7 @@ public class AvlTree implements Iterable<Integer> {
 	 * external contains() method can be implemented recursively.  
 	 * @param searchVal int, the value to be looked for.
 	 * @param curDepth the depth at this level of the recursion, at the calling level.
-	 * @param curNode the node currenlty being inspected.
+	 * @param curNode the node currently being inspected.
 	 * @return int representing the depth of the node, -1 if not found, 0 for root.
 	 */
 	private int recContains(int searchVal, int curDepth, Node curNode) {
@@ -312,6 +312,7 @@ public class AvlTree implements Iterable<Integer> {
 	 */
 	public boolean delete(int toDelete) {
 		// TODO dont' forget to reduce size here.
+		return true;
 	}
 	
 	/** 
@@ -331,10 +332,10 @@ public class AvlTree implements Iterable<Integer> {
 		return null;
 	}
 
-	public void forEach(Consumer action) {  //TODO what's a consumer action?
-		// TODO Auto-generated method stub
-		
-	}
+//	public void forEach(Consumer action) {  //TODO what's a consumer action?
+//		// TODO Auto-generated method stub
+//		
+//	}
 	
 	//TODO  DO we need a spliterator too?
 	
@@ -367,21 +368,26 @@ public class AvlTree implements Iterable<Integer> {
 		
 	}
 	
+	// DELETE or give javadoc comments?
+	void printTree() {
+		BTreePrinter.printNode(this.root);
+	}
+	
 	@Override
-	public String toString() {
+	public String toString() { //delete?
 		BTreePrinter.printNode(this.root);
 		
 		return ""; //TODO is this kosher??
 	}
 	
-	public int height(Node n) { // TODO GEt rid of this method if you go function path instead of keeping track of height in data field
-		if (n == null) {
-			return NULL_NODE_HEIGHT;
-		}
-		else {
-			return n.height; //TODO should node have height field?
-		}
-	}
+//	public int height(Node n) { // TODO GEt rid of this method if you go function path instead of keeping track of height in data field
+//		if (n == null) {
+//			return NULL_NODE_HEIGHT;
+//		}
+//		else {
+//			return n.height; //TODO should node have height field?
+//		}
+//	}
 	
 	
 	/** This method returns the height balance between the left and right subtrees 
