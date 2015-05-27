@@ -438,7 +438,7 @@ public class AvlTree implements Iterable<Integer> {
 	 */
 	public Iterator<Integer> iterator() {
 		// TODO Auto-generated method stub
-		return null;
+		return new AvlIterator(this);
 	}
 
 //	public void forEach(Consumer action) {  //TODO what's a consumer action?
@@ -458,7 +458,7 @@ public class AvlTree implements Iterable<Integer> {
 		
 		// Make sure to return -1 for negative heights
 		if (h < MIN_HEIGHT) {
-			return -1;
+			return NULL_NODE_HEIGHT;
 		}
 		
 		// base cases
@@ -471,33 +471,19 @@ public class AvlTree implements Iterable<Integer> {
 		
 		// Recursive cases: 
 		else{
-			return findMinNodes(h - 1) + findMinNodes(h - 2);
+			return findMinNodes(h - 1) + findMinNodes(h - 2); //TODO magic numbers
 			
 		}
 		
 	}
 	
-	// DELETE or give javadoc comments?
+	// TODO DELETE or give javadoc comments?
 	void printTree() {
 		BTreePrinter.printNode(this.root);
 	}
 	
-	@Override
-	public String toString() { //delete?
-		BTreePrinter.printNode(this.root);
-		
-		return ""; //TODO is this kosher??
-	}
-	
-//	public int height(Node n) { // TODO GEt rid of this method if you go function path instead of keeping track of height in data field
-//		if (n == null) {
-//			return NULL_NODE_HEIGHT;
-//		}
-//		else {
-//			return n.height; //TODO should node have height field?
-//		}
-//	}
-	
+
+
 	
 	/** This method returns the height balance between the left and right subtrees 
 	 * of the node.
@@ -516,7 +502,7 @@ public class AvlTree implements Iterable<Integer> {
 	private static int getHeight(Node subRoot) {
 		
 		if (subRoot == null) {
-			return -1;
+			return NULL_NODE_HEIGHT;
 		}
 		
 		// Recursive case:

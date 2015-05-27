@@ -22,7 +22,7 @@ public class Driver {
 		for (int i= 0; i < 26; i++) tree.add(i);
 		tree.printTree();
 		
-		for (int i= 0; i < 18; i++) tree.delete(i);
+		for (int i= 0; i < 24; i++) tree.delete(i);
 		
 //		for (int i= 0; i > -6; i--) tree.add(i);
 		
