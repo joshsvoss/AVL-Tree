@@ -332,7 +332,60 @@ public class AvlTree implements Iterable<Integer> {
 	 * @return the subroot of the current tree, this may change during deletion and rebalancing.
 	 */
 	private Node recDelete(int toDelete, Node subRoot) {
+		// If tree is empty, do nothing and return the tree so everything stays as is
+		// Or alternatively, we've reached null because toDelte doesn't exist in our tree
+		if (subRoot == null) return subRoot;
 		
+		// if toDelete is less than our root, go left:
+		else if (toDelete < subRoot.getData() ) subRoot.setLeft(recDelete(toDelete, subRoot.getLeft()));
+		
+		// Likewise for the right side and greater than:
+		else if (toDelete > subRoot.getData()) subRoot.setLeft(recDelete(toDelete, subRoot.getLeft()));
+		
+		// Otherwise, we've found the desired node!
+		else subRoot = literalDelete(subRoot);
+		
+		return subRoot;
+	}
+	
+	/* This internal method performs the actual REMOVING of the undesired data.
+	 * 
+	 * @param removeNode the node which contains the data we want to remove
+	 * @return Node a node reference back up the call stack to reasign the parent pointers.
+	 */
+	private Node literalDelete(Node removeNode) {
+		
+		// Decrement size!
+		this.size--;
+		
+		// If the current node has no left child, replace it with the right child, 
+		// Which will either be a Node or null:
+		if (removeNode.getLeft() == null) return removeNode.getRight();
+		
+		// Otherwise if the node has only a left child, replace with the left
+		else if (removeNode.getRight() == null) return removeNode.getLeft();
+		
+		// Otherwise, our node has TWO CHILDREN.  Find it's successor on the right, copy it's data 
+		// and remove that node.  
+		else {
+			int replacingData = getSuccessor(removeNode.getRight());
+			removeNode.setData(replacingData);
+			// Now call the recursive delete for that same data on the right subtree:
+			removeNode.setRight(recDelete(replacingData, removeNode.getRight()));
+			
+			// Return the newly initialized root node
+			return removeNode;
+		}
+	}
+	
+	private int getSuccessor(Node root) {
+		
+		while (root.getLeft() != null) {
+			root = root.getLeft();
+		}
+		
+		// Once we've found a null, return the node right before the null
+		return root.getData();
 	}
 	
 	/** 
