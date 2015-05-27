@@ -180,12 +180,14 @@ public class AvlTree implements Iterable<Integer> {
 		
 		
 		Node node1 = node3.getLeft();
+		Node node2 = node1.getRight();
 		
-		node3.setLeft(node1.getRight()); // Which is the boy node.
+		node3.setLeft(node2); // Which is the boy node.
 		// reset dad's reference to null
-		node1.setRight(null);
+		node1.setRight(node2.getLeft());
+		node2.setLeft(node1);
 		
-		node3.getLeft().setLeft(node1);
+		
 
 		
 	}
@@ -237,9 +239,9 @@ public class AvlTree implements Iterable<Integer> {
 		
 		// Rotate:
 		node1.setRight(node2);
+		node3.setLeft(node2.getRight()); // Don't forget grandkids
 		node2.setRight(node3);
-		// Reset double pointer to null:
-		node3.setLeft(null);
+		
 		
 	}
 	
@@ -313,8 +315,24 @@ public class AvlTree implements Iterable<Integer> {
 	 * @return true if the given node was found and delete, otherwise false.  
 	 */
 	public boolean delete(int toDelete) {
-		// TODO dont' forget to reduce size here.
-		return true;
+		
+		int beforeSize = this.size();
+		
+		// Call internal recursive method
+		this.root = recDelete(toDelete, this.root);
+		
+		// Check after call to see if size changed, to decide what boolean to return
+		return (this.size() == beforeSize);
+	}
+	
+	/* This internal helper method allows delete to be implemented recursively.
+	 * 
+	 * @param toDelete the value that we want to delete
+	 * @param subRoot root of the subtree we're currently looking at.
+	 * @return the subroot of the current tree, this may change during deletion and rebalancing.
+	 */
+	private Node recDelete(int toDelete, Node subRoot) {
+		
 	}
 	
 	/** 
