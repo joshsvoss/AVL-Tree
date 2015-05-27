@@ -345,37 +345,42 @@ public class AvlTree implements Iterable<Integer> {
 		// Otherwise, we've found the desired node!
 		else subRoot = literalDelete(subRoot);
 		
-		// Now check rotation conditions and call the appropriate rotation:
-		int b = this.heightBalance(subRoot);
-		
-		if (b > 1) {
-			// Then we're long on the left side:
-			// Check if LL or LR case:
-			if (heightBalance(subRoot.getLeft()) >= 0) {
-				// Then we have left-left case:
-				subRoot = leftLeftRotation(subRoot);
+		// Now check rotation conditions and call the appropriate rotation,
+		// As long as it's not null (when a node was deleted by assigning itself to it's
+		// right child, who could be null.
+		if (subRoot != null) {
+			int b = this.heightBalance(subRoot);
+			
+			if (b > 1) {
+				// Then we're long on the left side:
+				// Check if LL or LR case:
+				if (heightBalance(subRoot.getLeft()) >= 0) {
+					// Then we have left-left case:
+					subRoot = leftLeftRotation(subRoot);
+				}
+				else {
+					// Otherwise we have left-right case:
+					leftRightRotation(subRoot);
+					subRoot = leftLeftRotation(subRoot); // TODO repitiion as seen 5 lines above
+				}
 			}
-			else {
-				// Otherwise we have left-right case:
-				leftRightRotation(subRoot);
-				subRoot = leftLeftRotation(subRoot); // TODO repitiion as seen 5 lines above
+		
+		
+			else if (b < -1) {
+				// Then we're long on the right side!
+				// Figure out if we're RL or RR case:
+				if (heightBalance(subRoot.getRight()) < 0) {
+					// Then we're in Right-right:
+					subRoot = rightRightRotation(subRoot);
+				}
+				else {
+					// Otherwise we must be in Right-Left:
+					rightLeftRotation(subRoot);
+					subRoot = rightRightRotation(subRoot);
+				}
 			}
 		}
-		
-		else if (b < -1) {
-			// Then we're long on the right side!
-			// Figure out if we're RL or RR case:
-			if (heightBalance(subRoot.getRight()) < 0) {
-				// Then we're in Right-right:
-				subRoot = rightRightRotation(subRoot);
-			}
-			else {
-				// Otherwise we must be in Right-Left:
-				rightLeftRotation(subRoot);
-				subRoot = rightRightRotation(subRoot);
-			}
-		}
-		
+			
 		return subRoot;
 	}
 	
@@ -499,7 +504,7 @@ public class AvlTree implements Iterable<Integer> {
 	 * @return
 	 */
 	public int heightBalance(Node n) { // TODO moving this also to Avl Tree??
-		return getHeight(n.getLeft()) - getHeight(n.getRight()); //TODO make sure you're consistent.  
+		return getHeight(n.getLeft()) - getHeight(n.getRight()); 
 	}
 	
 	/* This method returns the height of the node in the argument as 
