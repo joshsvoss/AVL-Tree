@@ -19,7 +19,12 @@ public class Driver {
 //		tree.add(-6);
 //		tree.add(-7);
 		
-		for (int i= 0; i < 20; i++) tree.add(i);
+		for (int i= 0; i < 26; i++) tree.add(i);
+		tree.printTree();
+		
+		for (int i= 0; i < 18; i++) tree.delete(i);
+		
+//		for (int i= 0; i > -6; i--) tree.add(i);
 		
 		
 		// Print the tree

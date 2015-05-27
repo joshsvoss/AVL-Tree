@@ -176,7 +176,7 @@ public class AvlTree implements Iterable<Integer> {
 	 * @param node3 the root of this subtree, which in this totation is unchanged.  Highest value of 
 	 * the three nodes.  
 	 */
-	private void leftRightRotation(Node node3) { 
+	private void leftRightRotation(Node node3) { //TODO is this correct that it returns void?
 		
 		
 		Node node1 = node3.getLeft();
@@ -344,6 +344,37 @@ public class AvlTree implements Iterable<Integer> {
 		
 		// Otherwise, we've found the desired node!
 		else subRoot = literalDelete(subRoot);
+		
+		// Now check rotation conditions and call the appropriate rotation:
+		int b = this.heightBalance(subRoot);
+		
+		if (b > 1) {
+			// Then we're long on the left side:
+			// Check if LL or LR case:
+			if (heightBalance(subRoot.getLeft()) >= 0) {
+				// Then we have left-left case:
+				subRoot = leftLeftRotation(subRoot);
+			}
+			else {
+				// Otherwise we have left-right case:
+				leftRightRotation(subRoot);
+				subRoot = leftLeftRotation(subRoot); // TODO repitiion as seen 5 lines above
+			}
+		}
+		
+		else if (b < -1) {
+			// Then we're long on the right side!
+			// Figure out if we're RL or RR case:
+			if (heightBalance(subRoot.getRight()) < 0) {
+				// Then we're in Right-right:
+				subRoot = rightRightRotation(subRoot);
+			}
+			else {
+				// Otherwise we must be in Right-Left:
+				rightLeftRotation(subRoot);
+				subRoot = rightRightRotation(subRoot);
+			}
+		}
 		
 		return subRoot;
 	}
