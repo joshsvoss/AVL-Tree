@@ -5,7 +5,6 @@ public class Node {
 	// Fields
 	private Node left;
 	private Node right;
-	private Node parent;
 	private int data;
 	
 //	//TODO possible fields:

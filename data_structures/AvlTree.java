@@ -45,8 +45,10 @@ public class AvlTree implements Iterable<Integer> {
 		
 		this();
 		
-		for (int element: data ) {
-			this.add(element);
+		if (data != null) {
+			for (int element: data ) {
+				this.add(element);
+			}
 		}
 		
 	}
@@ -61,8 +63,15 @@ public class AvlTree implements Iterable<Integer> {
 	 * @param avlTree an AVL tree.
 	 */
 	public AvlTree(AvlTree avlTree) {
-		// TODO implement
-		// TODO grab iterator from avl tree and call next until null?  Then add em all.
+		
+		this();
+		if (avlTree != null) {
+			Iterator<Integer> it = avlTree.iterator();
+			
+			while (it.hasNext()) {
+				this.add(it.next());
+			}
+		}
 	}
 	
 	

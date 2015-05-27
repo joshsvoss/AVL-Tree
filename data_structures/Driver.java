@@ -30,14 +30,18 @@ public class Driver {
 			System.out.println(it.next());
 		}
 		
-		for (int i= 0; i < 24; i++) tree.delete(i);
-		System.out.printf("SIZE: %d %n", tree.size());
+		// Try copy constructor:
+		AvlTree tree2 = new AvlTree(tree);
+		tree2.printTree();
+		
+//		for (int i= 0; i < 24; i++) tree.delete(i);
+//		System.out.printf("SIZE: %d %n", tree.size());
 		
 //		for (int i= 0; i > -6; i--) tree.add(i);
 		
 		
-		// Print the tree
-		tree.printTree();
+//		// Print the tree
+//		tree.printTree();
 	
 		// Check if tree contains what you're looking for:
 		System.out.println(tree.contains(4));
