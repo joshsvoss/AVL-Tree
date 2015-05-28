@@ -20,8 +20,8 @@ public class Driver {
 //		tree.add(-6);
 //		tree.add(-7);
 		
-		for (int i= 0; i < 26; i++) tree.add(i);
-		tree.printTree();
+		for (int i= 0; i < 100; i++) tree.add(i);
+//		tree.printTree();
 		System.out.printf("SIZE: %d %n", tree.size());
 		
 		// Try out iterator
@@ -31,8 +31,8 @@ public class Driver {
 		}
 		
 		// Try copy constructor:
-		AvlTree tree2 = new AvlTree(tree);
-		tree2.printTree();
+//		AvlTree tree2 = new AvlTree(tree);
+//		tree2.printTree();
 		
 //		for (int i= 0; i < 24; i++) tree.delete(i);
 //		System.out.printf("SIZE: %d %n", tree.size());

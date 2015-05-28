@@ -1,6 +1,11 @@
 package data_structures;
 
 import java.util.Iterator;
+//TODO used this?
+// Import for the iterator:
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+import java.util.Iterator;
 
 
 public class AvlTree implements Iterable<Integer> {
@@ -331,7 +336,7 @@ public class AvlTree implements Iterable<Integer> {
 		this.root = recDelete(toDelete, this.root);
 		
 		// Check after call to see if size changed, to decide what boolean to return
-		return (this.size() == beforeSize);
+		return (this.size() != beforeSize);
 	}
 	
 	/* This internal helper method allows delete to be implemented recursively.
@@ -354,7 +359,7 @@ public class AvlTree implements Iterable<Integer> {
 		
 		// Likewise for the right side and greater than:
 		else if (toDelete > subRoot.getData()) { 
-			subRoot.setLeft(recDelete(toDelete, subRoot.getLeft()));
+			subRoot.setRight(recDelete(toDelete, subRoot.getRight()));
 		}
 		
 		// Otherwise, we've found the desired node!
@@ -480,23 +485,18 @@ public class AvlTree implements Iterable<Integer> {
 		
 		// base cases
 		if (h == HEIGHT_ZERO) {
-			return MIN_NODES_OF_HEIGHT_1;
+			return MIN_NODES_OF_HEIGHT_0;
 		}
 		else if (h == HEIGHT_ONE) {
-			return MIN_NODES_OF_HEIGHT_0;
+			return MIN_NODES_OF_HEIGHT_1;
 		}
 		
 		// Recursive cases: 
 		else{
-			return findMinNodes(h - 1) + findMinNodes(h - 2); //TODO magic numbers
+			return findMinNodes(h - HEIGHT_ONE) + findMinNodes(h - MIN_NODES_OF_HEIGHT_1) + HEIGHT_ONE; 
 			
 		}
 		
-	}
-	
-	// TODO DELETE or give javadoc comments?
-	void printTree() {
-		BTreePrinter.printNode(this.root);
 	}
 	
 
